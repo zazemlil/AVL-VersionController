@@ -19,6 +19,7 @@ public:
 	~Tree();
 
 	Node* getHead();
+	void setHead(Node* p);
 	static Node* insert(Node* p, int k);
 	static Node* remove(Node* p, int k);
 	static void deepShow(Node* p);
