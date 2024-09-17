@@ -12,6 +12,10 @@ Node* Tree::getHead() {
 	return this->head;
 }
 
+void Tree::setHead(Node* p) {
+	this->head = p;
+}
+
 unsigned char Tree::getHeight(Node* p) {
 	return p ? p->height : 0;
 }
