@@ -8,6 +8,5 @@ int main() {
 
 	Tree::deepShow(tree->getHead());
 
-	std::system("Pause");
 	return 0;
 }
