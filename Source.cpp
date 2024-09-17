@@ -11,5 +11,6 @@ int main() {
 	tree->setHead(Tree::insert(tree->getHead(), 8));
 
 	Tree::deepShow(tree->getHead());
+
 	return 0;
 }
