@@ -9,14 +9,6 @@ Tree::~Tree() {
 	delete head;
 }
 
-Tree::Node* Tree::getHead() {
-	return this->head;
-}
-
-void Tree::setHead(Node* p) {
-	this->head = p;
-}
-
 unsigned char Tree::getHeight(Node* p) {
 	return p ? p->height : 0;
 }
@@ -88,6 +80,10 @@ Tree::Node* Tree::insert(Node* p, int k)
 	return balance(p);
 }
 
+void Tree::insert(int k) {
+	this->head = insert(this->head, k);
+}
+
 Tree::Node* Tree::findMin(Node* p)
 {
 	return p->left ? findMin(p->left) : p;
@@ -122,9 +118,17 @@ Tree::Node* Tree::remove(Node* p, int k) // удаление ключа k из дерева p
 	return balance(p);
 }
 
+void Tree::remove(int k) {
+	this->head = remove(this->head, k);
+}
+
 void Tree::inOrder(Node* p) {
 	if (p == 0) return;
 	inOrder(p->left);
 	std::cout << p->key << "\n";
 	inOrder(p->right);
+}
+
+void Tree::inOrder() {
+	inOrder(this->head);
 }
