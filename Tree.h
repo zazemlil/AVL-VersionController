@@ -3,6 +3,13 @@
 
 class Tree {
 private:
+	struct Node
+	{
+		int key;
+		unsigned char height;
+		Node* left;
+		Node* right;
+	};
 	Node* head;
 
 	static unsigned char getHeight(Node* p);
@@ -15,12 +22,12 @@ private:
 	static Node* removeMin(Node* p);
 
 public:
-	Tree(int key);
+	Tree();
 	~Tree();
 
 	Node* getHead();
 	void setHead(Node* p);
 	static Node* insert(Node* p, int k);
 	static Node* remove(Node* p, int k);
-	static void deepShow(Node* p);
+	static void inOrder(Node* p);
 };

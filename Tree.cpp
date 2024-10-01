@@ -1,14 +1,15 @@
 #include "Tree.h"
+#include <iostream>
 
-Tree::Tree(int key) {
-	this->head = new Node(key);
+Tree::Tree() {
+	this->head = nullptr;
 }
 
 Tree::~Tree() {
 	delete head;
 }
 
-Node* Tree::getHead() {
+Tree::Node* Tree::getHead() {
 	return this->head;
 }
 
@@ -32,7 +33,7 @@ void Tree::fixHeight(Node* p)
 	p->height = (hl > hr ? hl : hr) + 1;
 }
 
-Node* Tree::rotateRight(Node* p)
+Tree::Node* Tree::rotateRight(Node* p)
 {
 	Node* q = p->left;
 	p->left = q->right;
@@ -42,7 +43,7 @@ Node* Tree::rotateRight(Node* p)
 	return q;
 }
 
-Node* Tree::rotateLeft(Node* q)
+Tree::Node* Tree::rotateLeft(Node* q)
 {
 	Node* p = q->right;
 	q->right = p->left;
@@ -52,7 +53,7 @@ Node* Tree::rotateLeft(Node* q)
 	return p;
 }
 
-Node* Tree::balance(Node* p)
+Tree::Node* Tree::balance(Node* p)
 {
 	fixHeight(p);
 	if (bFactor(p) == 2)
@@ -70,9 +71,16 @@ Node* Tree::balance(Node* p)
 	return p;
 }
 
-Node* Tree::insert(Node* p, int k)
+Tree::Node* Tree::insert(Node* p, int k)
 {
-	if (!p) return new Node(k);
+	if (!p) {
+		Node* n = new Node();
+		n->key = k;
+		n->height = 1;
+		n->left = nullptr;
+		n->right = nullptr;
+		return n;
+	}
 	if (k < p->key)
 		p->left = insert(p->left, k);
 	else
@@ -80,12 +88,12 @@ Node* Tree::insert(Node* p, int k)
 	return balance(p);
 }
 
-Node* Tree::findMin(Node* p) 
+Tree::Node* Tree::findMin(Node* p)
 {
 	return p->left ? findMin(p->left) : p;
 }
 
-Node* Tree::removeMin(Node* p)
+Tree::Node* Tree::removeMin(Node* p)
 {
 	if (p->left == 0)
 		return p->right;
@@ -93,7 +101,7 @@ Node* Tree::removeMin(Node* p)
 	return balance(p);
 }
 
-Node* Tree::remove(Node* p, int k) // удаление ключа k из дерева p
+Tree::Node* Tree::remove(Node* p, int k) // удаление ключа k из дерева p
 {
 	if (!p) return 0;
 	if (k < p->key)
@@ -114,9 +122,9 @@ Node* Tree::remove(Node* p, int k) // удаление ключа k из дерева p
 	return balance(p);
 }
 
-void Tree::deepShow(Node* p) {
+void Tree::inOrder(Node* p) {
 	if (p == 0) return;
-	deepShow(p->left);
-	p->printData();
-	deepShow(p->right);
+	inOrder(p->left);
+	std::cout << p->key << "\n";
+	inOrder(p->right);
 }
