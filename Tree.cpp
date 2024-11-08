@@ -1,5 +1,5 @@
-#include "Tree.h"
 #include <iostream>
+#include "Tree.h"
 
 Tree::Tree() {
 	this->head = nullptr;
@@ -25,7 +25,7 @@ void Tree::fixHeight(Node* p)
 	p->height = (hl > hr ? hl : hr) + 1;
 }
 
-Tree::Node* Tree::rotateRight(Node* p)
+Node* Tree::rotateRight(Node* p)
 {
 	Node* q = p->left;
 	p->left = q->right;
@@ -35,7 +35,7 @@ Tree::Node* Tree::rotateRight(Node* p)
 	return q;
 }
 
-Tree::Node* Tree::rotateLeft(Node* q)
+Node* Tree::rotateLeft(Node* q)
 {
 	Node* p = q->right;
 	q->right = p->left;
@@ -45,7 +45,7 @@ Tree::Node* Tree::rotateLeft(Node* q)
 	return p;
 }
 
-Tree::Node* Tree::balance(Node* p)
+Node* Tree::balance(Node* p)
 {
 	fixHeight(p);
 	if (bFactor(p) == 2)
@@ -63,7 +63,7 @@ Tree::Node* Tree::balance(Node* p)
 	return p;
 }
 
-Tree::Node* Tree::insert(Node* p, int k)
+Node* Tree::insert(Node* p, int k)
 {
 	if (!p) {
 		Node* n = new Node();
@@ -84,12 +84,12 @@ void Tree::insert(int k) {
 	this->head = insert(this->head, k);
 }
 
-Tree::Node* Tree::findMin(Node* p)
+Node* Tree::findMin(Node* p)
 {
 	return p->left ? findMin(p->left) : p;
 }
 
-Tree::Node* Tree::removeMin(Node* p)
+Node* Tree::removeMin(Node* p)
 {
 	if (p->left == 0)
 		return p->right;
@@ -97,7 +97,7 @@ Tree::Node* Tree::removeMin(Node* p)
 	return balance(p);
 }
 
-Tree::Node* Tree::remove(Node* p, int k) // удаление ключа k из дерева p
+Node* Tree::remove(Node* p, int k) // удаление ключа k из дерева p
 {
 	if (!p) return 0;
 	if (k < p->key)

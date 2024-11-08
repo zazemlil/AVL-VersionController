@@ -1,14 +1,9 @@
 #pragma once
 
+#include "Node.h"
+
 class Tree {
 private:
-	struct Node
-	{
-		int key;
-		unsigned char height;
-		Node* left;
-		Node* right;
-	};
 	Node* head;
 
 	unsigned char getHeight(Node* p);
