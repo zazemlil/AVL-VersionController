@@ -75,7 +75,7 @@ Node* Tree::insert(Node* p, int k)
 	}
 	if (k < p->key)
 		p->left = insert(p->left, k);
-	else
+	else if (k > p->key)
 		p->right = insert(p->right, k);
 	return balance(p);
 }
@@ -131,4 +131,26 @@ void Tree::inOrder(Node* p) {
 
 void Tree::inOrder() {
 	inOrder(this->head);
+}
+
+void Tree::order(Node* root, int space)
+{
+	if (root == NULL)
+		return;
+
+	space += 10;
+
+	order(root->right, space);
+
+	std::cout << std::endl;
+	for (int i = 10; i < space; i++)
+		std::cout << " ";
+	std::cout << root->key << "\n";
+
+	order(root->left, space);
+}
+
+void Tree::order()
+{
+	order(this->head, 0);
 }
