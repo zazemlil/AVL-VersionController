@@ -2,13 +2,16 @@
 
 #include "Tree.h"
 #include "ActionType.h"
+
+#include <string>
 #include <tuple>
+#include <fstream>
 
 class VersionControlledTree : public Tree {
 	std::string versionsFilePath;
 
-	void addVersionAction(int key, ActionType action);
-	std::tuple<int, ActionType> getVersionAction(std::string s);
+	void addVersionAction(ActionType action, int key);
+	std::tuple<ActionType, int> getVersionAction(std::string s);
 
 public:
 	VersionControlledTree(std::string versionsFilePath);
