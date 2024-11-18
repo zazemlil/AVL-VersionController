@@ -9,6 +9,11 @@ Tree::~Tree() {
 	delete head;
 }
 
+bool Tree::isLastOpSuccessful()
+{
+	return isLastOperationSuccessful;
+}
+
 unsigned char Tree::getHeight(Node* p) {
 	return p ? p->height : 0;
 }
@@ -65,6 +70,7 @@ Node* Tree::insert(Node* p, int k) {
 		n->height = 1;
 		n->left = nullptr;
 		n->right = nullptr;
+		isLastOperationSuccessful = true;
 		return n;
 	}
 	if (k < p->key)
@@ -75,6 +81,7 @@ Node* Tree::insert(Node* p, int k) {
 }
 
 void Tree::insert(int k) {
+	isLastOperationSuccessful = false;
 	this->head = insert(this->head, k);
 }
 
@@ -104,12 +111,14 @@ Node* Tree::remove(Node* p, int k) {// удаление ключа k из дерева p
 		Node* min = findMin(r);
 		min->right = removeMin(r);
 		min->left = q;
+		isLastOperationSuccessful = true;
 		return balance(min);
 	}
 	return balance(p);
 }
 
 void Tree::remove(int k) {
+	isLastOperationSuccessful = false;
 	this->head = remove(this->head, k);
 }
 

@@ -6,6 +6,7 @@
 class Tree {
 private:
 	Node* head;
+	bool isLastOperationSuccessful;
 
 	unsigned char getHeight(Node* p);
 	int bFactor(Node* p);
@@ -21,6 +22,9 @@ private:
 	void inOrder(Node* p);
 
 	void order(Node* root, int space);
+
+protected:
+	bool isLastOpSuccessful();
 
 public:
 	Tree();

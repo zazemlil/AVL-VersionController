@@ -128,13 +128,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FullSaveTree.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Tree.cpp" />
+    <ClCompile Include="VersionControlledTree.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActionType.h" />
+    <ClInclude Include="FullSaveTree.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Tree.h" />
+    <ClInclude Include="VersionControlledTree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
