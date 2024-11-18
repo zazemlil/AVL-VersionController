@@ -13,20 +13,17 @@ unsigned char Tree::getHeight(Node* p) {
 	return p ? p->height : 0;
 }
 
-int Tree::bFactor(Node* p)
-{
+int Tree::bFactor(Node* p) {
 	return getHeight(p->right) - getHeight(p->left);
 }
 
-void Tree::fixHeight(Node* p)
-{
+void Tree::fixHeight(Node* p) {
 	unsigned char hl = getHeight(p->left);
 	unsigned char hr = getHeight(p->right);
 	p->height = (hl > hr ? hl : hr) + 1;
 }
 
-Node* Tree::rotateRight(Node* p)
-{
+Node* Tree::rotateRight(Node* p) {
 	Node* q = p->left;
 	p->left = q->right;
 	q->right = p;
@@ -35,8 +32,7 @@ Node* Tree::rotateRight(Node* p)
 	return q;
 }
 
-Node* Tree::rotateLeft(Node* q)
-{
+Node* Tree::rotateLeft(Node* q) {
 	Node* p = q->right;
 	q->right = p->left;
 	p->left = q;
@@ -45,8 +41,7 @@ Node* Tree::rotateLeft(Node* q)
 	return p;
 }
 
-Node* Tree::balance(Node* p)
-{
+Node* Tree::balance(Node* p) {
 	fixHeight(p);
 	if (bFactor(p) == 2)
 	{
@@ -63,8 +58,7 @@ Node* Tree::balance(Node* p)
 	return p;
 }
 
-Node* Tree::insert(Node* p, int k)
-{
+Node* Tree::insert(Node* p, int k) {
 	if (!p) {
 		Node* n = new Node();
 		n->key = k;
@@ -84,21 +78,18 @@ void Tree::insert(int k) {
 	this->head = insert(this->head, k);
 }
 
-Node* Tree::findMin(Node* p)
-{
+Node* Tree::findMin(Node* p) {
 	return p->left ? findMin(p->left) : p;
 }
 
-Node* Tree::removeMin(Node* p)
-{
+Node* Tree::removeMin(Node* p) {
 	if (p->left == 0)
 		return p->right;
 	p->left = removeMin(p->left);
 	return balance(p);
 }
 
-Node* Tree::remove(Node* p, int k) // удаление ключа k из дерева p
-{
+Node* Tree::remove(Node* p, int k) {// удаление ключа k из дерева p
 	if (!p) return 0;
 	if (k < p->key)
 		p->left = remove(p->left, k);
@@ -133,8 +124,7 @@ void Tree::inOrder() {
 	inOrder(this->head);
 }
 
-void Tree::order(Node* root, int space)
-{
+void Tree::order(Node* root, int space) {
 	if (root == NULL)
 		return;
 
@@ -150,7 +140,6 @@ void Tree::order(Node* root, int space)
 	order(root->left, space);
 }
 
-void Tree::order()
-{
+void Tree::order() {
 	order(this->head, 0);
 }

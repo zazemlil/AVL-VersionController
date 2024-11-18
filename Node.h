@@ -1,7 +1,6 @@
 #pragma once
 
-class Node
-{
+class Node {
 	int key;
 	unsigned char height;
 	Node* left;

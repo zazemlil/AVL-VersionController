@@ -1,67 +1,49 @@
 #include "Tree.h"
 #include <iostream>
 #include <string>
-#include <filesystem>
-
-namespace fs = std::filesystem;
-
+#include <Windows.h>
 
 int main() {
+	setlocale(LC_ALL, "ru");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+
 	Tree* tree = new Tree();
 
 	bool isRunning = true;
 	while (isRunning) {
 		char selectedItem;
-		std::cout << "1. Select version\n";
-		std::cout << "2. Output tree\n";
-		std::cout << "3. Add node\n";
-		std::cout << "4. Delete node\n";
-		std::cout << "0. Exit\n";
-		std::cout << "Enter: ";
+		std::cout << "1. Выбрать версию.\n";
+		std::cout << "2. Сравнить контроль версий с алгоритмом полного копирования.\n";
+		std::cout << "3. Вывести дерево.\n";
+		std::cout << "4. Добавить узел.\n";
+		std::cout << "5. Удалить узел.\n";
+		std::cout << "0. Выход из программы.\n";
+		std::cout << "Ввод: ";
 
 		std::cin >> selectedItem;
 		switch (selectedItem)
 		{
 		case '1': {
-			std::string path = "./AVLversions/";
-			int i = 0;
-			for (const auto& entry : fs::directory_iterator(path)) {
-				std::cout << i << ") " << entry.path().filename() << std::endl;
-				i++;
-			}
-			std::cout << "Enter: ";
-			int selected;
-			std::cin >> selected;
-			std::string fileName = "";
-			if (selected <= i and selected >= 0) {
-				i = 0;
-				for (const auto& entry : fs::directory_iterator(path)) {
-					if (selected == i) {
-						fileName = entry.path().filename().string();
-						break;
-					}
-					i++;
-				}
-
-				std::cout << fileName << "\n";
-			}
-			else {
-				std::cout << "empty\n";
-			}
+			
 			break;
 		}
 		case '2': {
-			tree->order();
+
 			break;
 		}
 		case '3': {
+			tree->order();
+			break;
+		}
+		case '4': {
 			int key;
 			std::cout << "Enter node key: ";
 			std::cin >> key;
 			tree->insert(key);
 			break;
 		}
-		case '4': {
+		case '5': {
 			int key;
 			std::cout << "Enter node key: ";
 			std::cin >> key;
