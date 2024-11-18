@@ -3,6 +3,11 @@
 #include <string>
 #include <Windows.h>
 
+enum A
+{
+	ASD = 'i'
+};
+
 int main() {
 	setlocale(LC_ALL, "ru");
 	SetConsoleCP(1251);
@@ -25,7 +30,7 @@ int main() {
 		switch (selectedItem)
 		{
 		case '1': {
-			
+
 			break;
 		}
 		case '2': {

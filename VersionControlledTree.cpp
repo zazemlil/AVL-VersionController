@@ -9,8 +9,9 @@ std::tuple<int, ActionType> VersionControlledTree::getVersionAction(std::string 
 	return std::tuple<int, ActionType>();
 }
 
-VersionControlledTree::~VersionControlledTree()
+VersionControlledTree::VersionControlledTree(std::string versionsFilePath) : Tree()
 {
+	this->versionsFilePath = versionsFilePath;
 }
 
 void VersionControlledTree::setVersionsFilePath(std::string path)

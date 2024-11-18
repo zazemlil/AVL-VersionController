@@ -11,8 +11,7 @@ class VersionControlledTree : public Tree {
 	std::tuple<int, ActionType> getVersionAction(std::string s);
 
 public:
-	VersionControlledTree() : Tree() {};
-	~VersionControlledTree();
+	VersionControlledTree(std::string versionsFilePath);
 
 	void setVersionsFilePath(std::string path);
 	std::string getVersionsFilePath();
