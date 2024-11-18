@@ -10,8 +10,7 @@ int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	Tree* tree = new Tree();
-	VersionControlledTree* tree2 = new VersionControlledTree("AVLversions.txt");
+	VersionControlledTree* tree = new VersionControlledTree("AVLversions.txt");
 
     bool isRunning = true;
 
@@ -33,7 +32,7 @@ int main() {
                 int version;
                 std::cout << "Введите номер версии: ";
                 if (std::cin >> version) {
-                    if (tree2->selectVersion(version)) {
+                    if (tree->selectVersion(version)) {
                         std::cout << "Версия " << version << " установлена.\n";
                     }
                     else {
@@ -50,14 +49,21 @@ int main() {
                 break;
             }
             case '3': {
-                tree->order();
+                if (!tree->order()) {
+                    std::cout << "Дерево пустое.\n";
+                }
                 break;
             }
             case '4': {
                 int key;
                 std::cout << "Введите ключ узла: ";
                 if (std::cin >> key) {
-                    tree->insert(key);
+                    if (tree->insert(key)) {
+                        std::cout << "Ключ " << key << " успешно добавлен.\n";
+                    }
+                    else {
+                        std::cout << "Такой ключ уже существует.\n";
+                    }
                 }
                 else {
                     std::cout << "Ошибка ввода. Ожидается целое число.\n";
@@ -68,7 +74,12 @@ int main() {
                 int key;
                 std::cout << "Введите ключ узла: ";
                 if (std::cin >> key) {
-                    tree->remove(key);
+                    if (tree->remove(key)) {
+                        std::cout << "Ключ " << key << " успешно удален.\n";
+                    }
+                    else {
+                        std::cout << "Такого ключа не существует.\n";
+                    }
                 }
                 else {
                     std::cout << "Ошибка ввода. Ожидается целое число.\n";
@@ -80,7 +91,7 @@ int main() {
                 break;
             }
             default: {
-                std::cout << "Введен неправильный пункт меню.\n";
+                std::cout << "Такого пункта меню не существует.\n";
                 break;
             }
             }
