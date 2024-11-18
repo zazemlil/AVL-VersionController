@@ -96,7 +96,7 @@ Node* Tree::removeMin(Node* p) {
 	return balance(p);
 }
 
-Node* Tree::remove(Node* p, int k) {// удаление ключа k из дерева p
+Node* Tree::remove(Node* p, int k) {
 	if (!p) return 0;
 	if (k < p->key)
 		p->left = remove(p->left, k);
@@ -104,6 +104,7 @@ Node* Tree::remove(Node* p, int k) {// удаление ключа k из дерева p
 		p->right = remove(p->right, k);
 	else //  k == p->key 
 	{
+		isLastOperationSuccessful = true;
 		Node* q = p->left;
 		Node* r = p->right;
 		delete p;
@@ -111,7 +112,6 @@ Node* Tree::remove(Node* p, int k) {// удаление ключа k из дерева p
 		Node* min = findMin(r);
 		min->right = removeMin(r);
 		min->left = q;
-		isLastOperationSuccessful = true;
 		return balance(min);
 	}
 	return balance(p);
@@ -122,21 +122,23 @@ void Tree::remove(int k) {
 	this->head = remove(this->head, k);
 }
 
-void Tree::inOrder(Node* p) {
-	if (p == 0) return;
-	inOrder(p->left);
-	std::cout << p->key << "\n";
-	inOrder(p->right);
+void Tree::clear(Node* p)
+{
+	if (p == nullptr) return;
+	clear(p->left);
+	clear(p->right);
+	delete p;
 }
 
-void Tree::inOrder() {
-	inOrder(this->head);
+void Tree::clear() {
+	clear(this->head);
+	head = nullptr;
 }
 
 void Tree::order(Node* root, int space) {
-	if (root == NULL)
+	if (root == nullptr)
 		return;
-
+	isLastOperationSuccessful = true;
 	space += 10;
 
 	order(root->right, space);
@@ -149,6 +151,9 @@ void Tree::order(Node* root, int space) {
 	order(root->left, space);
 }
 
-void Tree::order() {
+bool Tree::order() {
+	isLastOperationSuccessful = false;
 	order(this->head, 0);
+	if (isLastOperationSuccessful) return true;
+	return false;
 }

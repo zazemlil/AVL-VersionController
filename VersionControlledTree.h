@@ -9,10 +9,13 @@
 
 class VersionControlledTree : public Tree {
 	std::string versionsFilePath;
+	int lastVersionNumber;
 
-	void addVersionAction(ActionType action, int key);
-	std::tuple<ActionType, int> getVersionAction(std::string s);
+	std::fstream getFileStream(std::ios_base::openmode params);
 
+	void writeVersionAction(ActionType action, int key);
+	std::tuple<ActionType, int> readVersionAction(std::string s);
+	
 public:
 	VersionControlledTree(std::string versionsFilePath);
 
@@ -21,5 +24,8 @@ public:
 
 	bool insert(int k);
 	bool remove(int k);
-	bool selectVersion(int version);
+	void clear();
+	bool selectVersion(int version, bool writeThisVersionAction = true);
+
+	int getLastVersionNumber();
 };

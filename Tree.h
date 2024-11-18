@@ -19,7 +19,7 @@ private:
 
 	Node* insert(Node* p, int k);
 	Node* remove(Node* p, int k);
-	void inOrder(Node* p);
+	void clear(Node* p);
 
 	void order(Node* root, int space);
 
@@ -32,6 +32,6 @@ public:
 
 	void insert(int k);
 	void remove(int k);
-	void inOrder();
-	void order();
+	void clear();
+	bool order();
 };

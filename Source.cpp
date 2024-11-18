@@ -17,10 +17,11 @@ int main() {
     while (isRunning) {
         std::string selectedItem;
         std::cout << "1. Выбрать версию.\n";
-        std::cout << "2. Сравнить контроль версий с алгоритмом полного копирования.\n";
-        std::cout << "3. Вывести дерево.\n";
-        std::cout << "4. Добавить узел.\n";
-        std::cout << "5. Удалить узел.\n";
+        std::cout << "2. Вывести дерево.\n";
+        std::cout << "3. Добавить узел.\n";
+        std::cout << "4. Удалить узел.\n";
+        std::cout << "5. Очистить дерево.\n";
+        std::cout << "6. Сравнить контроль версий с алгоритмом полного копирования.\n";
         std::cout << "0. Выход из программы.\n";
         std::cout << "Ввод: ";
 
@@ -29,8 +30,13 @@ int main() {
         if (selectedItem.length() == 1) {
             switch (selectedItem[0]) {
             case '1': {
+                int maxVersion = tree->getLastVersionNumber();
+                if (maxVersion == 0) {
+                    std::cout << "Нет сохраненных версий.\n";
+                    break;
+                }
                 int version;
-                std::cout << "Введите номер версии: ";
+                std::cout << "Введите номер версии(от 1 до " << maxVersion << "):\n";
                 if (std::cin >> version) {
                     if (tree->selectVersion(version)) {
                         std::cout << "Версия " << version << " установлена.\n";
@@ -45,16 +51,12 @@ int main() {
                 break;
             }
             case '2': {
-                
-                break;
-            }
-            case '3': {
                 if (!tree->order()) {
                     std::cout << "Дерево пустое.\n";
                 }
                 break;
             }
-            case '4': {
+            case '3': {
                 int key;
                 std::cout << "Введите ключ узла: ";
                 if (std::cin >> key) {
@@ -70,7 +72,7 @@ int main() {
                 }
                 break;
             }
-            case '5': {
+            case '4': {
                 int key;
                 std::cout << "Введите ключ узла: ";
                 if (std::cin >> key) {
@@ -84,6 +86,15 @@ int main() {
                 else {
                     std::cout << "Ошибка ввода. Ожидается целое число.\n";
                 }
+                break;
+            }
+            case '5': {
+                tree->clear();
+                std::cout << "Дерево удалено.\n";
+                break;
+            }
+            case '6': {
+                //
                 break;
             }
             case '0': {
