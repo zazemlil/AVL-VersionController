@@ -1,5 +1,6 @@
 #include "Tree.h"
 #include "VersionControlledTree.h"
+#include "FullSaveTree.h"
 
 #include <iostream>
 #include <string>
@@ -10,7 +11,8 @@ int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	VersionControlledTree* tree = new VersionControlledTree("AVLversions.txt");
+	//VersionControlledTree* tree = new VersionControlledTree("AVLversions.txt");
+    FullSaveTree* tree = new FullSaveTree("FullVersions.txt");
 
     bool isRunning = true;
 
@@ -94,7 +96,21 @@ int main() {
                 break;
             }
             case '6': {
-                //
+                /*t->insert(1);
+                t->insert(2);
+                t->insert(3);
+                t->insert(4);
+                t->insert(5);
+                t->order();
+
+                int v;
+                std::cout << "Введите номер версии: ";
+                std::cin >> v;
+                if (!t->selectVersion(v)) {
+                    std::cout << "Не удалось выбрать версию.\n";
+                }
+
+                t->order();*/
                 break;
             }
             case '0': {

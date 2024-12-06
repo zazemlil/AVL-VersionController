@@ -12,9 +12,11 @@ class FullSaveTree : public Tree {
 	int lastVersionNumber;
 
 	std::fstream getFileStream(std::ios_base::openmode params);
+	std::fstream getFileStream(std::string path, std::ios_base::openmode params);
 
 	void serialize(Node* root, std::fstream& file);
 	void deSerialize(Node*& root, std::fstream& file);
+	
 
 public:
 	FullSaveTree(std::string versionsFilePath);
@@ -23,4 +25,6 @@ public:
 	bool remove(int k);
 	void clear();
 	bool selectVersion(int version);
+
+	int getLastVersionNumber();
 };

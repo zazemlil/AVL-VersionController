@@ -24,6 +24,7 @@ private:
 	void order(Node* root, int space);
 
 protected:
+	Node*& getHead();
 	bool isLastOpSuccessful();
 
 public:

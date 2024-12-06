@@ -9,6 +9,11 @@ Tree::~Tree() {
 	delete head;
 }
 
+Node*& Tree::getHead()
+{
+	return head;
+}
+
 bool Tree::isLastOpSuccessful()
 {
 	return isLastOperationSuccessful;
