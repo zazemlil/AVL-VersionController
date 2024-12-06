@@ -7,6 +7,7 @@ class Node {
 	Node* right;
 
 	friend class Tree;
+	friend class FullSaveTree;
 public:
 	Node();
 	Node(int key);
