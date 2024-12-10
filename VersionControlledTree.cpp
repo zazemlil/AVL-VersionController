@@ -76,10 +76,53 @@ void VersionControlledTree::clear()
     writeVersionAction(T_CLEAR_TREE, 0);
 }
 
-bool VersionControlledTree::selectVersion(int version, bool writeThisVersionAction)
+//bool VersionControlledTree::selectVersion(int version, bool writeThisVersionAction)
+//{
+//    if (version <= 0) return false;
+//    
+//    std::fstream file = getFileStream(std::ios::in | std::ios::out);
+//    int size = std::count(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>(), '\n');
+//    if (version > size) return false;
+//    file.close();
+//
+//    file = getFileStream(std::ios::in | std::ios::out);
+//    std::string line;
+//    int currentLineNumber = 1;
+//    Tree::clear();
+//    while (std::getline(file, line)) {
+//        ActionType a;
+//        int k;
+//        std::tie(a, k) = readVersionAction(line);
+//        switch (a)
+//        {
+//        case T_INSERT:
+//            Tree::insert(k);
+//            break;
+//        case T_REMOVE:
+//            Tree::remove(k);
+//            break;
+//        case T_CLEAR_TREE:
+//            Tree::clear();
+//            break;
+//        case T_VERSION_SELECTED:
+//            Tree::clear();
+//            selectVersion(k, false);
+//            break;
+//        }
+//        if (currentLineNumber == version) {
+//            file.close();
+//            if (writeThisVersionAction) writeVersionAction(T_VERSION_SELECTED, version);
+//            return true;
+//        }
+//        ++currentLineNumber;
+//    }
+//    return false;
+//}
+
+bool VersionControlledTree::selectVersion(int version, Tree* selectedTree)
 {
     if (version <= 0) return false;
-    
+
     std::fstream file = getFileStream(std::ios::in | std::ios::out);
     int size = std::count(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>(), '\n');
     if (version > size) return false;
@@ -88,7 +131,7 @@ bool VersionControlledTree::selectVersion(int version, bool writeThisVersionActi
     file = getFileStream(std::ios::in | std::ios::out);
     std::string line;
     int currentLineNumber = 1;
-    Tree::clear();
+    selectedTree->clear();
     while (std::getline(file, line)) {
         ActionType a;
         int k;
@@ -96,22 +139,17 @@ bool VersionControlledTree::selectVersion(int version, bool writeThisVersionActi
         switch (a)
         {
         case T_INSERT:
-            Tree::insert(k);
+            selectedTree->insert(k);
             break;
         case T_REMOVE:
-            Tree::remove(k);
+            selectedTree->remove(k);
             break;
         case T_CLEAR_TREE:
-            Tree::clear();
-            break;
-        case T_VERSION_SELECTED:
-            Tree::clear();
-            selectVersion(k, false);
+            selectedTree->clear();
             break;
         }
         if (currentLineNumber == version) {
             file.close();
-            if (writeThisVersionAction) writeVersionAction(T_VERSION_SELECTED, version);
             return true;
         }
         ++currentLineNumber;

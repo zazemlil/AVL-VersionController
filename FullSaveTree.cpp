@@ -93,12 +93,48 @@ void FullSaveTree::clear()
     file.close();
 }
 
-bool FullSaveTree::selectVersion(int version)
+//bool FullSaveTree::selectVersion(int version)
+//{
+//    if (version < 1 || lastVersionNumber < version) {
+//        return false;
+//    }
+//    Tree::clear();
+//
+//    std::fstream file = getFileStream(std::ios::in);
+//
+//    std::string s = "";
+//    int k = 1;
+//    while (std::getline(file, s))
+//    {
+//        if (k == version) break;
+//        k++;
+//    }
+//    file.close();
+//
+//    file = getFileStream("tempTest.txt", std::ios::out);
+//    file << s;
+//    file.close();
+//
+//    file = getFileStream("tempTest.txt", std::ios::in);
+//    deSerialize(this->getHead(), file);
+//    file.close();
+//    std::remove("tempTest.txt");
+//
+//    file = getFileStream(std::ios::out | std::ios::app);
+//    serialize(this->getHead(), file);
+//    file << '\n';
+//    lastVersionNumber++;
+//    file.close();
+//
+//    return true;
+//}
+
+bool FullSaveTree::selectVersion(int version, Tree* selectedTree)
 {
     if (version < 1 || lastVersionNumber < version) {
         return false;
     }
-    Tree::clear();
+    selectedTree->clear();
 
     std::fstream file = getFileStream(std::ios::in);
 
@@ -116,15 +152,9 @@ bool FullSaveTree::selectVersion(int version)
     file.close();
 
     file = getFileStream("tempTest.txt", std::ios::in);
-    deSerialize(this->getHead(), file);
+    deSerialize(selectedTree->getHead(), file);
     file.close();
     std::remove("tempTest.txt");
-
-    file = getFileStream(std::ios::out | std::ios::app);
-    serialize(this->getHead(), file);
-    file << '\n';
-    lastVersionNumber++;
-    file.close();
 
     return true;
 }

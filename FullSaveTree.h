@@ -24,7 +24,8 @@ public:
 	bool insert(int k);
 	bool remove(int k);
 	void clear();
-	bool selectVersion(int version);
+	//bool selectVersion(int version);
+	bool selectVersion(int version, Tree* selectedTree);
 
 	int getLastVersionNumber();
 };

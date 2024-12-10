@@ -22,8 +22,8 @@ int main() {
 
     while (isRunning) {
         std::string selectedItem;
-        std::cout << "1. Выбрать версию.\n";
-        std::cout << "2. Вывести дерево.\n";
+        std::cout << "1. Вывести конкретную версию.\n";
+        std::cout << "2. Вывести текущее дерево.\n";
         std::cout << "3. Добавить узел.\n";
         std::cout << "4. Удалить узел.\n";
         std::cout << "5. Очистить дерево.\n";
@@ -42,10 +42,13 @@ int main() {
                     break;
                 }
                 int version;
+                Tree* selectedTree = new Tree();
                 std::cout << "Введите номер версии(от 1 до " << maxVersion << "):\n";
                 if (std::cin >> version) {
-                    if (tree->selectVersion(version)) {
-                        std::cout << "Версия " << version << " установлена.\n";
+                    if (tree->selectVersion(version, selectedTree)) {
+                        //std::cout << "Версия " << version << " установлена.\n";
+                        selectedTree->order();
+                        selectedTree->clear();
                     }
                     else {
                         std::cout << "Не удалось найти версию.\n";
@@ -54,6 +57,7 @@ int main() {
                 else {
                     std::cout << "Ошибка ввода. Ожидается целое число.\n";
                 }
+                delete selectedTree;
                 break;
             }
             case '2': {
@@ -100,7 +104,7 @@ int main() {
                 break;
             }
             case '6': {
-                VersionControlledTree* tree1 = new VersionControlledTree("compAVLversions.txt");
+                /*VersionControlledTree* tree1 = new VersionControlledTree("compAVLversions.txt");
                 FullSaveTree* tree2 = new FullSaveTree("compFullVersions.txt");
 
                 int valueCount = 1000;
@@ -205,7 +209,7 @@ int main() {
                 std::remove("compAVLversions.txt");
                 std::remove("compFullVersions.txt");
                 delete tree1;
-                delete tree2;
+                delete tree2;*/
                 break;
             }
             case '0': {

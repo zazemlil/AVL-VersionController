@@ -24,12 +24,14 @@ private:
 	void order(Node* root, int space);
 
 protected:
-	Node*& getHead();
 	bool isLastOpSuccessful();
 
 public:
 	Tree();
 	~Tree();
+
+
+	Node*& getHead();
 
 	void insert(int k);
 	void remove(int k);
