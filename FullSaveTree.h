@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Tree.h"
-
 #include <string>
 #include <fstream>
+
+#include "Tree.h"
 
 #define MARKER '#'
 

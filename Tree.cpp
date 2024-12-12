@@ -127,12 +127,13 @@ void Tree::remove(int k) {
 	this->head = remove(this->head, k);
 }
 
-void Tree::clear(Node* p)
+void Tree::clear(Node*& p)
 {
 	if (p == nullptr) return;
 	clear(p->left);
 	clear(p->right);
 	delete p;
+	p = nullptr;
 }
 
 void Tree::clear() {

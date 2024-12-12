@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Tree.h"
-#include "ActionType.h"
-
 #include <string>
 #include <tuple>
 #include <fstream>
+
+#include "Tree.h"
+#include "ActionType.h"
 
 class VersionControlledTree : public Tree {
 	std::string versionsFilePath;

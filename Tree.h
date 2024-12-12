@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Node.h"
 #include <iomanip>
+
+#include "Node.h"
 
 class Tree {
 private:
@@ -19,7 +20,7 @@ private:
 
 	Node* insert(Node* p, int k);
 	Node* remove(Node* p, int k);
-	void clear(Node* p);
+	void clear(Node*& p);
 
 	void order(Node* root, int space);
 
