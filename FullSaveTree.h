@@ -2,21 +2,23 @@
 
 #include <string>
 #include <fstream>
+#include <iostream>
 
 #include "Tree.h"
 
-#define MARKER '#'
+#define MARKER "#"
 
 class FullSaveTree : public Tree {
 	std::string versionsFilePath;
 	int lastVersionNumber;
+	std::streampos lastVersionIndex, prevVersionIndex;
 
 	std::fstream getFileStream(std::ios_base::openmode params);
 	std::fstream getFileStream(std::string path, std::ios_base::openmode params);
 
-	void serialize(Node* root, std::fstream& file);
-	void deSerialize(Node*& root, std::fstream& file);
-	
+	void serialize(Node* root, std::string& data);
+	//void deSerialize(Node*& root, std::fstream& file);
+	void deSerialize(Node*& root, std::string& data);
 
 public:
 	FullSaveTree(std::string versionsFilePath);

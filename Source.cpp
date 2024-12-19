@@ -27,8 +27,8 @@ int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 
-	VersionControlledTree* tree = new VersionControlledTree("AVLversions.txt");
-    //FullSaveTree* tree = new FullSaveTree("FullVersions.txt");
+	//VersionControlledTree* tree = new VersionControlledTree("AVLversions.txt");
+    FullSaveTree* tree = new FullSaveTree("FullVersions.txt");
 
     bool isRunning = true;
 
@@ -246,11 +246,11 @@ int main() {
                                                 << "VersionControlledTree mem, KB" << '\t' 
                                                 << "FullSaveTree mem, KB" << '\n';
 
-                currKeysCount = 100, step = 1000;
+                currKeysCount = 1, step = 2000;
                 tree1 = new VersionControlledTree("compAVLversions.txt");
                 tree2 = new FullSaveTree("compFullVersions.txt");
                 //std::vector<int> keys;
-                for (int k = 0; k < 10000; k++) {
+                for (int k = 0; k < 1; k++) {
                     //int key = rand();
                     //tree1->insert(key);
                     //tree2->insert(key);
@@ -259,6 +259,7 @@ int main() {
                     tree2->insert(k);
                 }
                 for (int i = 0; i < 9; i++) {
+                    
                     //tree1 = new VersionControlledTree("compAVLversions.txt");
                     //tree2 = new FullSaveTree("compFullVersions.txt");
                     //std::vector<int> keys;
@@ -277,21 +278,21 @@ int main() {
                         Tree* selectedTree = new Tree();
 
                         std::chrono::steady_clock::time_point start = std::chrono::steady_clock::now();
-                        tree1->selectVersion(currKeysCount-1, selectedTree); // tree1->selectVersion(currKey, selectedTree);
+                        tree1->selectVersion(tree1->getLastVersionNumber(), selectedTree); // tree1->selectVersion(currKey, selectedTree);
                         std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
                         auto result = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
                         versionControlledTime = result.count();
                         delete selectedTree;
                         selectedTree = nullptr;
 
-                        //selectedTree = new Tree();
-                        //start = std::chrono::steady_clock::now();
-                        //tree2->selectVersion(currKeysCount-1, selectedTree); // tree2->selectVersion(currKey, selectedTree);
-                        //end = std::chrono::steady_clock::now();
-                        //result = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
-                        //fullSaveTime = result.count();
-                        //delete selectedTree;
-                        //selectedTree = nullptr;
+                        selectedTree = new Tree();
+                        start = std::chrono::steady_clock::now();
+                        tree2->selectVersion(tree2->getLastVersionNumber(), selectedTree); // tree2->selectVersion(currKey, selectedTree);
+                        end = std::chrono::steady_clock::now();
+                        result = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+                        fullSaveTime = result.count();
+                        delete selectedTree;
+                        selectedTree = nullptr;
                     //}
                     std::cout << "Операция выбора последней версии при " << currKeysCount << " ключах:\n"
                         << "\tVersionControlledTree = " << versionControlledTime / double(1000) << " msec\n"
@@ -305,7 +306,16 @@ int main() {
                         << std::to_string(std::filesystem::file_size("compAVLversions.txt") / (double)1024 / currKeysCount) << '\t'
                         << std::to_string(std::filesystem::file_size("compFullVersions.txt") / (double)1024 / currKeysCount) << '\n';
 
+                    int old = currKeysCount;
                     currKeysCount += step;
+                    for (int k = old; k < currKeysCount; k++) {
+                        //int key = rand();
+                        //tree1->insert(key);
+                        //tree2->insert(key);
+                        //keys.push_back(key);
+                        tree1->insert(k);
+                        tree2->insert(k);
+                    }
                     versionControlledTime = 0, fullSaveTime = 0;
 
                     //std::remove("compAVLversions.txt");
@@ -317,6 +327,8 @@ int main() {
                     //keys.clear();
                     //keys.shrink_to_fit();
                 }
+                std::remove("compAVLversions.txt");
+                std::remove("compFullVersions.txt");
                 
                 file.close();
                 break;
